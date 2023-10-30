@@ -54,7 +54,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
      * to initially compile.
      * @param species
      */
-    @Query("FROM Pet")
+    @Query("FROM Pet p WHERE p.species = :species")
     List<Pet> lab1(@Param("species") String species);
 
     /**
@@ -62,7 +62,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
      * Replace 'FROM Pet' with the necessary query and add Param annotations. 'FROM Pet' is present to allow the app
      * to initially compile.
      */
-    @Query("FROM Pet")
+    @Query("SELECT p FROM Pet p WHERE p.name = :name OR p.age = :age")
     List<Pet> lab2(@Param("name") String name, @Param("age") int age);
 
     /**
@@ -70,7 +70,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
      * Replace 'FROM Pet' with the necessary query and add Param annotations. 'FROM Pet' is present to allow the app
      * to initially compile.
      */
-    @Query("FROM Pet")
+    @Query(value = "SELECT AVG(p.age) FROM Pet p", nativeQuery = true)
     double lab3();
 
 }
